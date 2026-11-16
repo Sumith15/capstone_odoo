@@ -1,1 +1,1 @@
-# capstone_streamlit
+# capstone_odoo
