@@ -1,1 +1,189 @@
-# capstone_streamlit
+1. Opening – The Business Problem
+
+(Approx. 1 minute)
+
+Good morning everyone.
+
+Today, I am presenting my project, Odoo Sales & Risk Analytics Platform – Transforming Odoo Business Data into Actionable Intelligence.
+
+Let me start with a simple business scenario.
+
+Imagine a company that has thousands of customers, hundreds of products, and thousands of sales transactions.
+
+It has all the data it needs. But does it really know which valuable customers are becoming inactive? Which products are losing demand? Or how much revenue is dependent on a small group of customers?
+
+Traditional reports can tell a business what happened. But they often fail to highlight what deserves attention.
+
+And that is the problem my project aims to solve.
+
+The objective is not just to generate reports. It is to transform raw business data into reliable insights that help management identify sales risks and make better decisions.
+
+2. Business Impact – Why This Project Matters
+
+(Approx. 1 minute)
+
+My project focuses on three major business risks.
+
+First, Customer Retention Risk.
+
+A company may have valuable customers who gradually stop purchasing. If the business identifies this too late, it may lose revenue and retention opportunities. My platform helps identify customers based on their purchasing behaviour and inactivity.
+
+Second, Product Performance Risk.
+
+Some products may experience declining sales or demand. By analysing product-level performance over time, management can identify products that need attention.
+
+Third, Revenue Concentration Risk.
+
+When a large portion of revenue comes from a small number of customers, the business becomes dependent on them. My platform highlights this concentration so management can understand its exposure.
+
+Ultimately, the platform helps businesses move from reactive reporting towards more informed and proactive decision-making.
+
+3. Architecture – How the Platform Works
+
+(Approx. 1 minute)
+
+Now, let me explain how I built this platform.
+
+The data originates from the Odoo business platform. I ingest multiple datasets, including customers, products, sales orders, order lines, sales teams, users, and company information.
+
+The pipeline follows a layered architecture:
+
+Landing, Bronze, Silver, Gold, and Aggregation.
+
+Apache Airflow orchestrates the pipeline and manages execution dependencies.
+
+HDFS provides the distributed storage layer, while PySpark handles large-scale data processing.
+
+Apache Iceberg manages the tables across the data layers, supporting reliable updates and historical data management.
+
+At the end of the pipeline, the Aggregation layer provides business-ready data to the Streamlit dashboard and AI Analytics Assistant.
+
+The important point is that every layer has a clear responsibility, making the platform easier to maintain, validate, and extend.
+
+4. Data Engineering – Turning Raw Data into Trusted Data
+
+(Approx. 1 minute 15 seconds)
+
+One of the biggest challenges in business analytics is not generating charts. It is ensuring that the underlying data is trustworthy.
+
+That is why I designed the pipeline with multiple quality and reliability mechanisms.
+
+In the Bronze layer, I preserve the original source data and maintain ingestion information. I also track processed files to prevent duplicate processing.
+
+In the Silver layer, I clean and standardise the data. I handle duplicates, invalid records, schema inconsistencies, and rejected records.
+
+In the Gold layer, I build a dimensional model using fact and dimension tables.
+
+I implemented Slowly Changing Dimension Type 2 for customer history, allowing the platform to preserve changes in customer information over time.
+
+I also designed the fact tables at two different grains: one record per sales order and one record per sales order line.
+
+Finally, the Aggregation layer transforms these business-ready tables into metrics that can directly support management decisions.
+
+So, instead of simply moving data from one place to another, the pipeline progressively improves its quality, structure, and business meaning.
+
+5. Business Intelligence – What Can Management See?
+
+(Approx. 1 minute)
+
+The next part is where the engineering work becomes useful to the business.
+
+I developed a Streamlit dashboard with multiple analytical sections.
+
+The Executive Revenue Overview gives management a quick view of total revenue, growth, orders, average order value, and customer activity.
+
+The Customer Intelligence section helps understand customer behaviour, purchasing activity, and customer value.
+
+The Product Intelligence section highlights top-performing products, product contribution, and performance trends.
+
+The Sales and Fulfilment section provides visibility into sales teams, salespeople, and order fulfilment.
+
+And finally, the Risk and Insights section brings important business signals together, including customer risk, revenue concentration, and product-related backlogs.
+
+The idea is to give different business users a consolidated view of performance instead of making them depend on disconnected reports.
+
+6. Actual Results – What Does the Data Tell Us?
+
+(Approx. 1 minute)
+
+Now, let me highlight some results from the processed dataset.
+
+The platform processed 10,640 sales orders, of which 10,600 were eligible sale orders.
+
+The eligible order-header net revenue is approximately 4.46 million.
+
+The Customer Intelligence layer identifies 3,763 current customer records, including customers without eligible sales activity.
+
+The platform also identifies 3,362 products with sales activity out of 4,072 current products.
+
+For customer risk analysis, the current distribution shows 3,181 low-risk customers and 582 medium-risk customers, with no customers currently classified as high risk.
+
+One important point is that the risk score is based on deterministic business rules using customer activity and purchasing behaviour. It is not a machine-learning prediction.
+
+These results demonstrate how raw Odoo data can be converted into measurable business intelligence.
+
+7. AI Analytics Assistant – Making Insights Easier to Access
+
+(Approx. 1 minute)
+
+Another important feature of my platform is the AI Analytics Assistant.
+
+The idea behind this feature is simple: business users should not always need to navigate multiple dashboards or understand SQL to get answers.
+
+They can ask questions in natural language.
+
+For example:
+
+"Which customers are contributing the most revenue?"
+
+Or:
+
+"Show me customers who may need a follow-up."
+
+The assistant identifies the type of question and routes it accordingly.
+
+For live business data, it generates SQL using the available schema context. Before execution, the SQL is validated using SQLGlot and checked through DuckDB.
+
+For documentation-related questions, it uses a local knowledge retrieval mechanism.
+
+It can also combine both approaches when a question requires business data and documentation.
+
+Most importantly, the assistant operates in read-only mode and can access only approved analytical views.
+
+This makes the experience more accessible while maintaining control over data access.
+
+8. Reliability – Why Should the Business Trust It?
+
+(Approx. 45 seconds)
+
+A business analytics platform is useful only when its numbers can be trusted.
+
+That is why I implemented quality checks across the pipeline.
+
+Each layer has validation and reconciliation checks. Invalid records are retained separately rather than silently discarded.
+
+The pipeline also maintains audit information that connects source files, processing batches, pipeline runs, and dashboard refreshes.
+
+In the latest aggregation quality results, there were zero hard failures, with one warning.
+
+The dashboard is designed to consume certified analytical data rather than directly querying raw source files.
+
+This helps ensure that business users work with data that has passed the required quality checks.
+
+9. Closing – The Business Value
+
+(Approx. 45 seconds)
+
+To conclude, this project brings together data engineering, business intelligence, and AI into one integrated platform.
+
+It takes fragmented Odoo data and transforms it into structured, validated, and business-ready information.
+
+It helps management understand revenue performance, identify customers who may need attention, monitor product performance, and recognise revenue concentration risks.
+
+But the most important value is this:
+
+I didn't build another dashboard to show a business what happened. I built a platform to help it understand what deserves attention next.
+
+That is the real purpose of the Odoo Sales & Risk Analytics Platform.
+
+Thank you.
