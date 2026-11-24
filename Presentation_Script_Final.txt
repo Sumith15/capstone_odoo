@@ -1,0 +1,152 @@
+ODOO SALES & RISK ANALYTICS PLATFORM
+Transforming Odoo Business Data into Actionable Intelligence
+Presentation Script | 11 slides | approx. 9 minutes
+================================================================
+
+TIMING PLAN
+  Slide  1  Title                                          0:30
+  Slide  2  The Business Problem                           1:25
+  Slide  3  KPI Indicators                                 1:10
+  Slide  4  Architecture                                   1:10
+  Slide  5  AI Analytics Assistant                         1:05
+  Slide  6  Dashboard 1: Executive Revenue Overview        0:40
+  Slide  7  Dashboard 2: Customer Intelligence             0:35
+  Slide  8  Dashboard 3: Product Intelligence              0:30
+  Slide  9  Dashboard 4: Sales & Fulfilment Performance    0:30
+  Slide 10  Dashboard 5: Risk, Concentration & Insights    0:40
+  Slide 11  Thank You                                      0:40
+  TOTAL                                                  8:55
+
+Pace: about 125 words per minute. Replace [Your Name] on slide 1.
+Lines marked (Cue) are delivery hints, not spoken words.
+================================================================
+
+SLIDE 1 | TITLE  (approx. 0:30)
+(Cue: Slow, confident start. Pause after the project name.)
+
+Good morning everyone, and thank you for being here.
+
+I'm [Your Name], and today I'm presenting the Odoo Sales & Risk Analytics Platform: a platform built to transform Odoo business data into actionable intelligence.
+
+In the next nine minutes, I'll walk you through the business problem, how the platform solves it, and what management can actually see and do with it.
+
+----------------------------------------------------------------
+
+SLIDE 2 | THE BUSINESS PROBLEM  (approx. 1:25)
+(Cue: Ask the three questions slowly. Let the audience feel the gap.)
+
+Let me start with a simple scenario.
+
+Imagine a company with thousands of customers, thousands of products, and over ten thousand sales orders. It has all the data it needs. But can it quickly answer three questions?
+
+Which valuable customers are quietly becoming inactive? Which products are losing momentum, or piling up undelivered and uninvoiced demand? And how much of our revenue depends on just a handful of customers?
+
+These are the three risks this project targets: Customer Retention Risk, Product Performance Risk, and Revenue Concentration Risk.
+
+If retention slips, revenue quietly walks out the door. If product demand stalls or backlog builds, cash flow and customer trust suffer. And if too much revenue sits with a few customers, losing a single account can hurt the whole business.
+
+Traditional reports tell a business what happened. They rarely tell it what deserves attention. The real challenge is not a lack of data. It is the lack of a trusted way to turn fragmented Odoo data into clear business priorities. That is the gap this platform closes.
+
+----------------------------------------------------------------
+
+SLIDE 3 | KPI INDICATORS  (approx. 1:10)
+(Cue: Name the four KPI families quickly, then slow down on the numbers.)
+
+To tackle these risks, the platform measures business health through four families of KPIs.
+
+Revenue and Invoicing. Sales Performance. Fulfilment Efficiency, meaning how much of what customers ordered has actually been delivered and invoiced. And Risk and Business Health, covering customer risk, revenue concentration and backlog exposure.
+
+These are not just design ideas. On the real dataset, the platform processed 10,640 sales orders, of which 10,600 were eligible, generating about 4.46 million in net revenue. It tracks 3,763 customers, and 3,362 of 4,072 products show sales activity.
+
+For risk, 3,181 customers are low risk and 582 are medium risk. Importantly, this score is built on transparent business rules, such as purchase recency and customer value. It is not a black-box prediction, so every flag can be explained. That is what lets management act early, while an at-risk customer can still be won back.
+
+----------------------------------------------------------------
+
+SLIDE 4 | ARCHITECTURE  (approx. 1:10)
+(Cue: Trace the six stages left to right with your hand. Land the word 'trust' at the end.)
+
+So how does the platform work? Data flows through six stages.
+
+Odoo exports first land in HDFS. The Bronze layer preserves them exactly as received and prevents duplicate loads. Silver cleans, standardises and validates the data, and invalid records go to quarantine rather than being silently dropped. Gold builds the business model: facts for orders and order lines, with customer history tracked using Slowly Changing Dimension Type 2. Aggregation then produces ready-to-use KPI tables that feed the dashboard and the AI assistant.
+
+Under the hood, Spark does the processing, Iceberg tables on HDFS provide reliable storage and updates, and Airflow orchestrates the entire chain.
+
+But the design principle that matters most is trust. Every layer reconciles its record counts, and quality gates certify the data before it reaches users. The latest aggregation gate shows zero hard failures, and the dashboard reads only certified data.
+
+----------------------------------------------------------------
+
+SLIDE 5 | AI ANALYTICS ASSISTANT  (approx. 1:05)
+(Cue: Read the example question aloud as if you were the manager typing it.)
+
+Dashboards answer the questions we already know to ask. But managers always have new ones. So I added a governed AI Analytics Assistant.
+
+A user can simply ask, 'Which customers contribute the most revenue?' or 'Which customers need a follow-up?', and get an answer in plain English.
+
+Behind the scenes, the assistant first decides whether the question needs live data, a KPI definition, or both. For live data, Gemini on Vertex AI writes the SQL, which is validated with SQLGlot and checked by DuckDB before it runs.
+
+And it is governed by design: read-only, limited to approved certified views, capped at 50 rows, and it always shows the SQL and evidence behind its answer. It will not write data, forecast, or answer unrelated questions. So it makes insights more accessible without compromising control.
+
+----------------------------------------------------------------
+
+SLIDE 6 | DASHBOARD 1: EXECUTIVE REVENUE OVERVIEW  (approx. 0:40)
+(Cue: Switch to a showing tone: 'Let me show you what management sees.')
+
+Now let me show you what management actually sees, starting with the Executive Revenue Overview.
+
+This is leadership's first stop: revenue, orders, average order value, active customers, and monthly trends by region and sales team. Management can view the full period, a date range, or a single month, and a certification banner confirms the data has passed its quality checks.
+
+In a few seconds, a leader can see how revenue is trending, what is driving it, and how much of the demand is actually being closed.
+
+----------------------------------------------------------------
+
+SLIDE 7 | DASHBOARD 2: CUSTOMER INTELLIGENCE  (approx. 0:35)
+(Cue: Point at the risk and recency panels on the screenshot.)
+
+Customer Intelligence moves from totals to people. It shows who is buying, who is most valuable, and who is slipping away, with current risk, recency and backlog, plus a drill-down into any individual customer. This is where retention conversations start.
+
+For example, a high-value customer who has not purchased for a long time shows up with a rising risk score, so a sales manager knows exactly who to call first.
+
+----------------------------------------------------------------
+
+SLIDE 8 | DASHBOARD 3: PRODUCT INTELLIGENCE  (approx. 0:30)
+(Cue: Point at the category ranking and backlog panels.)
+
+Product Intelligence shows which products and categories drive revenue, and which are accumulating unmet demand. Quantities, discounts, delivery fill and invoicing are all visible, so management can spot products that need attention before they become a problem.
+
+For instance, a product with strong orders but a growing delivery backlog points to a fulfilment issue, not a demand issue, and that changes what management does about it.
+
+----------------------------------------------------------------
+
+SLIDE 9 | DASHBOARD 4: SALES & FULFILMENT PERFORMANCE  (approx. 0:30)
+(Cue: Keep the pace brisk. One message: sell vs. fulfil.)
+
+Sales and Fulfilment compares teams and salespeople on commercial results, and shows how efficiently orders are being delivered and invoiced. It connects what the business sells to what it actually fulfils.
+
+A gap between ordered and delivered quantities, or between delivered and invoiced, is revenue the business has earned but not yet realised. Making that visible helps teams close it faster.
+
+----------------------------------------------------------------
+
+SLIDE 10 | DASHBOARD 5: RISK, CONCENTRATION & INSIGHTS  (approx. 0:40)
+(Cue: This is the climax of the demo. Slow down and let the audience read the insights.)
+
+And this is the page that answers the key question: what deserves attention next?
+
+It shows customer risk bands with the reasons behind them, monthly revenue concentration, meaning the share held by the top one, five and ten customers along with the HHI concentration index, and rule-based business insights with recommended actions, such as customers to follow up or products with delivery backlog.
+
+Every alert is explainable, so management knows not just what to act on, but why. This is the shift from reporting to prioritising.
+
+----------------------------------------------------------------
+
+SLIDE 11 | THANK YOU  (approx. 0:40)
+(Cue: Deliver the final line slowly, then smile and invite questions.)
+
+To conclude, this project brings together data engineering, business intelligence and AI in one integrated platform.
+
+It takes fragmented Odoo data and turns it into validated, certified, business-ready intelligence, so management can understand revenue performance, find customers who need attention, monitor product backlogs, and recognise concentration risk.
+
+I didn't build another dashboard to show a business what happened. I built a platform to help it understand what deserves attention next.
+
+Thank you. I'd be happy to take your questions.
+
+----------------------------------------------------------------
+
